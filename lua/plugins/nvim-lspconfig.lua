@@ -1,10 +1,9 @@
 return {
   "neovim/nvim-lspconfig",
   config = function()
-    vim.lsp.enable('lua_ls')
-    vim.lsp.enable('clangd')
-    vim.lsp.enable('ts_ls')
-    vim.lsp.enable('gopls')
+    local lsp = require("config.lsp")
+
+    vim.lsp.enable(lsp.servers)
 
     vim.api.nvim_create_autocmd("LspAttach", {
       callback = function(event)
