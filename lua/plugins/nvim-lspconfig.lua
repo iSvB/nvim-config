@@ -4,6 +4,7 @@ return {
     vim.lsp.enable('lua_ls')
     vim.lsp.enable('clangd')
     vim.lsp.enable('javascript')
+    vim.lsp.enable('gopls')
 
     vim.lsp.config('*', {
       -- Save
