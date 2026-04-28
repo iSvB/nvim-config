@@ -22,5 +22,5 @@ return {
         map("<leader>fm", vim.lsp.buf.format, "Format buffer")
       end,
     })
-  end
+  end,
 }

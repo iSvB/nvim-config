@@ -26,5 +26,5 @@ return {
     end, "Find all files")
     map("<leader>fg", builtin.live_grep, "Live grep")
     map("<leader>fb", builtin.buffers, "Find buffers")
-  end
+  end,
 }
