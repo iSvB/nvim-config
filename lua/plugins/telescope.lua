@@ -16,13 +16,15 @@ return {
 
     telescope.load_extension("ui-select")
 
-    vim.keymap.set('n', '<leader>ff', builtin.find_files, {})
-    vim.keymap.set('n', '<C-p>',
-      function()
-        builtin.find_files({ no_ignore = true, hidden = true })
-      end,
-      { desc = "Find files including gitignored and hidden" })
-    vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
-    vim.keymap.set("n", "<leader>fb", builtin.buffers, { desc = "Find buffers" })
+    local function map(lhs, rhs, desc)
+      vim.keymap.set('n', lhs, rhs, { desc = desc })
+    end
+
+    map('<leader>ff', builtin.find_files, 'Find files')
+    map('<C-p>', function()
+      builtin.find_files({ no_ignore = true, hidden = true })
+    end, 'Find all files')
+    map('<leader>fg', builtin.live_grep, 'Live grep')
+    map('<leader>fb', builtin.buffers, 'Find buffers')
   end
 }
