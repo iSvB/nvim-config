@@ -8,17 +8,19 @@ return {
 
     vim.api.nvim_create_autocmd("LspAttach", {
       callback = function(event)
-        local opts = { buffer = event.buf }
+        local function map(lhs, rhs, desc)
+          vim.keymap.set('n', lhs, rhs, { buffer = event.buf, desc = desc })
+        end
 
-        vim.keymap.set('n', '<leader>rr', vim.lsp.buf.rename, opts)
-        vim.keymap.set('n', '<leader>ic', vim.lsp.buf.incoming_calls, opts)
-        vim.keymap.set('n', '<leader>oc', vim.lsp.buf.outgoing_calls, opts)
-        vim.keymap.set('n', '<leader>re', vim.lsp.buf.references, opts)
-        vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, opts)
-        vim.keymap.set('n', '<leader>de', vim.lsp.buf.declaration, opts)
-        vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
-        vim.keymap.set('n', '<leader>td', vim.lsp.buf.type_definition, opts)
-        vim.keymap.set('n', '<leader>fm', vim.lsp.buf.format, opts)
+        map('<leader>rr', vim.lsp.buf.rename, 'Rename symbol')
+        map('<leader>ic', vim.lsp.buf.incoming_calls, 'Incoming calls')
+        map('<leader>oc', vim.lsp.buf.outgoing_calls, 'Outgoing calls')
+        map('<leader>re', vim.lsp.buf.references, 'References')
+        map('<leader>ca', vim.lsp.buf.code_action, 'Code action')
+        map('<leader>de', vim.lsp.buf.declaration, 'Go to declaration')
+        map('gd', vim.lsp.buf.definition, 'Go to definition')
+        map('<leader>td', vim.lsp.buf.type_definition, 'Go to type definition')
+        map('<leader>fm', vim.lsp.buf.format, 'Format buffer')
       end,
     })
   end
