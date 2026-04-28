@@ -3,7 +3,7 @@ return {
   config = function()
     vim.lsp.enable('lua_ls')
     vim.lsp.enable('clangd')
-    vim.lsp.enable('javascript')
+    vim.lsp.enable('ts_ls')
     vim.lsp.enable('gopls')
 
     vim.lsp.config('*', {
@@ -19,6 +19,8 @@ return {
       vim.keymap.set('n', 'gd', vim.lsp.buf.definition, {}),
       vim.keymap.set('n', '<leader>td', vim.lsp.buf.type_definition, {}),
       vim.keymap.set('n', '<leader>fm', vim.lsp.buf.format, {}),
+
+      vim.keymap.set("n", "<leader>nh", function() Snacks.notifier.show_history() end, { desc = "Show notification history" }),
 
       vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, { desc = "Previous diagnostic" }),
       vim.keymap.set("n", "]d", vim.diagnostic.goto_next, { desc = "Next diagnostic" }),
