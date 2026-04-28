@@ -5,12 +5,13 @@ return {
     "nvim-lua/plenary.nvim",
     "nvim-tree/nvim-web-devicons",
     "MunifTanjim/nui.nvim",
-    "3rd/image.nvim", opts = {}, -- Optional image support in preview window: See `# Preview Mode` for more information
+    { "3rd/image.nvim", opts = {} },
   },
   lazy = false, -- neo-tree will lazily load itself
   ---@module "neo-tree"
   ---@type neotree.Config?
-  config = function()
+  opts = {},
+  config = function(_, opts)
     local function map(lhs, rhs, desc)
       vim.keymap.set('n', lhs, rhs, { desc = desc })
     end
@@ -18,7 +19,6 @@ return {
     map('<C-n>', '<cmd>Neotree filesystem reveal left<CR>', 'Reveal file tree')
     map('<C-b>', '<cmd>Neotree buffers reveal float<CR>', 'Show buffers tree')
 
-    require("neo-tree").setup({
-    })
+    require("neo-tree").setup(opts)
   end,
 }
