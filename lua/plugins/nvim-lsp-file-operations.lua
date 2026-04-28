@@ -3,12 +3,9 @@ return {
   dependencies = {
     "nvim-lua/plenary.nvim",
     "nvim-neo-tree/neo-tree.nvim",
-  -- Uncomment whichever supported plugin(s) you use
-  -- "nvim-tree/nvim-tree.lua",
-  -- "nvim-neo-tree/neo-tree.nvim",
-  -- "simonmclean/triptych.nvim"
   },
-  config = function()
-    require("lsp-file-operations").setup()
-  end
+  opts = {},
+  config = function(_, opts)
+    require("lsp-file-operations").setup(opts)
+  end,
 }
