@@ -13,11 +13,11 @@ return {
   opts = {},
   config = function(_, opts)
     local function map(lhs, rhs, desc)
-      vim.keymap.set('n', lhs, rhs, { desc = desc })
+      vim.keymap.set("n", lhs, rhs, { desc = desc })
     end
 
-    map('<C-n>', '<cmd>Neotree filesystem reveal left<CR>', 'Reveal file tree')
-    map('<C-b>', '<cmd>Neotree buffers reveal float<CR>', 'Show buffers tree')
+    map("<C-n>", "<cmd>Neotree filesystem reveal left<CR>", "Reveal file tree")
+    map("<C-b>", "<cmd>Neotree buffers reveal float<CR>", "Show buffers tree")
 
     require("neo-tree").setup(opts)
   end,
