@@ -9,7 +9,7 @@ return {
 
     return {
       automatic_enable = true,
-      ensure_installed = lsp.servers,
+      ensure_installed = lsp.mason_servers,
     }
   end,
 }
