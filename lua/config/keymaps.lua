@@ -21,19 +21,30 @@ vim.keymap.set("n", "<leader>dl", vim.diagnostic.setloclist, { desc = "Diagnosti
 
 vim.api.nvim_create_autocmd("LspAttach", {
   callback = function(event)
+    local client = vim.lsp.get_client_by_id(event.data.client_id)
+    if not client then
+      return
+    end
+
     local function map(lhs, rhs, desc)
       vim.keymap.set("n", lhs, rhs, { buffer = event.buf, desc = desc })
     end
 
-    map("<leader>rr", vim.lsp.buf.rename, "Rename symbol")
-    map("<leader>ic", vim.lsp.buf.incoming_calls, "Incoming calls")
-    map("<leader>oc", vim.lsp.buf.outgoing_calls, "Outgoing calls")
-    map("<leader>re", vim.lsp.buf.references, "References")
-    map("<leader>ca", vim.lsp.buf.code_action, "Code action")
-    map("<leader>de", vim.lsp.buf.declaration, "Go to declaration")
-    map("<leader>gd", vim.lsp.buf.definition, "Go to definition")
-    map("<leader>td", vim.lsp.buf.type_definition, "Go to type definition")
-    map("<leader>im", vim.lsp.buf.implementation, "Go to implementation")
-    map("<leader>fm", vim.lsp.buf.format, "Format buffer")
+    local function lsp_map(method, lhs, rhs, desc)
+      if client:supports_method(method, event.buf) then
+        map(lhs, rhs, desc)
+      end
+    end
+
+    lsp_map("textDocument/rename", "<leader>rr", vim.lsp.buf.rename, "Rename symbol")
+    lsp_map("callHierarchy/incomingCalls", "<leader>ic", vim.lsp.buf.incoming_calls, "Incoming calls")
+    lsp_map("callHierarchy/outgoingCalls", "<leader>oc", vim.lsp.buf.outgoing_calls, "Outgoing calls")
+    lsp_map("textDocument/references", "<leader>re", vim.lsp.buf.references, "References")
+    lsp_map("textDocument/codeAction", "<leader>ca", vim.lsp.buf.code_action, "Code action")
+    lsp_map("textDocument/declaration", "<leader>de", vim.lsp.buf.declaration, "Go to declaration")
+    lsp_map("textDocument/definition", "<leader>gd", vim.lsp.buf.definition, "Go to definition")
+    lsp_map("textDocument/typeDefinition", "<leader>td", vim.lsp.buf.type_definition, "Go to type definition")
+    lsp_map("textDocument/implementation", "<leader>im", vim.lsp.buf.implementation, "Go to implementation")
+    lsp_map("textDocument/formatting", "<leader>fm", vim.lsp.buf.format, "Format buffer")
   end,
 })
